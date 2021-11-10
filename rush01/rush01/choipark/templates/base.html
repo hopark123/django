@@ -1,0 +1,15 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UFT-8">
+		{% block title%}{% endblock %}
+		{% block style%}{% endblock %}
+		<link rel="stylesheet" href="{% static 'base.css' %}">
+	</head>
+	<body>
+		{% include 'nav.html' %}
+		{% block content%}{% endblock %}
+		{% include 'messages.html' %}
+	</body>
+</html>

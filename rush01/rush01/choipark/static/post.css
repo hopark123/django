@@ -1,0 +1,26 @@
+.post_container {
+	padding: 15px 10px;
+}
+
+form > div {
+	height: 50px;
+	line-height: 50px;
+	font-size: 30px;
+	margin-bottom: 20px;
+	color: rgb(196, 131, 63);
+}
+
+div > input {
+	width: 300px;
+	height: 30px;
+}
+
+div > textarea {
+	width: 500px;
+	margin-bottom: 20px;
+	resize: none;
+}
+
+form > button {
+	margin-top: 150px;
+}

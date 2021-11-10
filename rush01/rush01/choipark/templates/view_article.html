@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}<title>{{article.title}}</title>{% endblock title%}
+
+{% block style%}
+<link rel="stylesheet" href="{% static 'article.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="article">
+        <div class="date">{{ article.date }} | author : <a href="/profile/{{article.author.id}}"><strong>{{ article.author }}</strong></a></div>
+        <h2>{{ article.title }}</h2>
+        <p>{{ article.content }}</p>
+    </div>
+    <form method="POST" action="">
+        {% csrf_token %}
+        {% if user.is_authenticated %}
+            <button type="submit" name="up_article" value="{{article.pk}}">
+            <img src="https://emoji.slack-edge.com/T039P7U66/truenews/3546a497fa63c120.gif"> : {{article.upvotes.count}}{{article.modle.upvotes.count}}</button>
+        {%else%}
+            <button><img src="https://emoji.slack-edge.com/T039P7U66/truenews/3546a497fa63c120.gif"> : {{article.upvotes.count}}</button>
+        {%endif%}
+        {% if user.is_authenticated %}
+            <button type="submit" name="down_article" value="{{article.pk}}">
+            <img src="https://emoji.slack-edge.com/T039P7U66/fakenews/31e8190a00ae37d6.gif"> : {{article.downvotes.count}}{{article.modle.downvotes.count}}</button>
+        {%else%}
+            <button><img src="https://emoji.slack-edge.com/T039P7U66/fakenews/31e8190a00ae37d6.gif"> : {{article.downvotes.count}}</button>
+        {%endif%}
+        {% if user.is_authenticated %}
+        <button type="submit" name="delete_article" value="{{article.pk}}">
+            Delete</button>
+        {%else%}
+        <button>Delete</button>
+        {%endif%}
+    </form>
+    <hr>
+    <form method="POST" action="{% url 'write_comment' article.id %}">
+        {% csrf_token %}
+        {{form_comment}}
+        <input type="submit">
+    </form>
+    <hr>
+    {% for comment in article.commentsmodel_set.all %}
+    <div class="comment_container">
+        <p class="comment_date" >
+            <a href="/profile/{{comment.author.id}}"><strong>{{ comment.author }}</strong></a> in {{comment.date}}<br>
+        </p>
+        <div>{{comment.comment}}</div>
+        <form method="POST" action="{% url 'article' article.id %}">
+            {% csrf_token %}
+            {% if user.is_authenticated %}
+                <button type="submit" name="up_comment" value="{{comment.pk}}">
+                <img src="https://emoji.slack-edge.com/T039P7U66/truenews/3546a497fa63c120.gif"> : {{comment.upvotes.count}}{{comment.model.upvotes.count}}</button>
+            {%else%}
+                <button><img src="https://emoji.slack-edge.com/T039P7U66/truenews/3546a497fa63c120.gif"> : {{comment.upvotes.count}}</button>
+            {%endif%}
+            {% if user.is_authenticated %}
+                <button type="submit" name="down_comment" value="{{comment.pk}}">
+                <img src="https://emoji.slack-edge.com/T039P7U66/fakenews/31e8190a00ae37d6.gif"> : {{comment.downvotes.count}}{{comment.model.downvotes.count}}</button>
+            {%else%}
+                <button><img src="https://emoji.slack-edge.com/T039P7U66/fakenews/31e8190a00ae37d6.gif"> : {{comment.downvotes.count}}</button>
+            {%endif%}
+            <button><a href="{% url 'delete_comment' comment.id article.id %}">Delete</a></button>
+        </form>
+    </div>
+    <form method="post" action="{% url 'write_reply' comment.id article.id %}">
+        {% csrf_token %}
+        {{form_reply}}
+        <input type="submit">
+    </form>
+    {% for reply in comment.replymodel_set.all %}
+    <div class="reply_container">
+        <p class="reply_date" >
+            <a href="/profile/{{reply.author.id}}"><strong>{{ reply.author }}</strong></a> in {{reply.date}}<br>
+        </p>
+        <div>{{reply.reply}}</div>
+        <form method="POST" action="{% url 'article' article.id %}">
+            {% csrf_token %}
+            {% if user.is_authenticated %}
+                <button type="submit" name="up_reply" value="{{reply.pk}}">
+                <img src="https://emoji.slack-edge.com/T039P7U66/truenews/3546a497fa63c120.gif"> : {{reply.upvotes.count}}{{reply.model.upvotes.count}}</button>
+            {%else%}
+                <button><img src="https://emoji.slack-edge.com/T039P7U66/truenews/3546a497fa63c120.gif"> : {{reply.upvotes.count}}</button>
+            {%endif%}
+            {% if user.is_authenticated %}
+                <button type="submit" name="down_reply" value="{{reply.pk}}">
+                <img src="https://emoji.slack-edge.com/T039P7U66/fakenews/31e8190a00ae37d6.gif"> : {{reply.downvotes.count}}{{reply.model.downvotes.count}}</button>
+            {%else%}
+                <button><img src="https://emoji.slack-edge.com/T039P7U66/fakenews/31e8190a00ae37d6.gif"> : {{reply.downvotes.count}}</button>
+            {%endif%}
+            <button><a href="{% url 'delete_reply' reply.id article.id %}">delete</a></button>
+        </form>
+    </div>
+    {% endfor %}
+    <hr>
+    {% endfor %}
+</div>
+{%endblock content%}

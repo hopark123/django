@@ -1,0 +1,85 @@
+{% extends 'ex01/base.html' %} {% load static %}
+{% block title %}<title>Ex01: Template engine.</title>{% endblock title %}
+{% block style %}<link rel="stylesheet" type="text/css" href="{% static '/ex01/style2.css' %}">{% endblock style%}
+{% block content %}
+&lt;h1&gt;{{ section.title }}&lt;/h1&gt;
+
+% for story in story_list %
+&lt;h2&gt;
+  &lt;a href="{{ story.get_absolute_url }}"&gt;
+    {{ story.headline|upper }}
+  &lt;/a&gt;
+&lt;/h2&gt;
+&lt;p&gt;{{ story.tease|truncatewords:"100" }}&lt;/p&gt;
+<p>장고 공식 문서에 나와있는 예제를 보면서 각 기능들을 공부해보자.</p>
+<h2 id="1-템플릿-변수">1. 템플릿 변수</h2>
+<p>템플릿변수를 사용하면 <strong>뷰에서 템플릿으로 객체를 전달</strong>할 수 있다. </p>
+<ul>
+<li><code>{{ 변수 }}</code>와 같이 생겼다. </li>
+<li><code>점(.)</code> 은 변수의 속성에 접근할 때 사용한다.</li>
+</ul>
+<p>위의 예제에서는 <code>{{ section.title}}</code> 와 같이 사용했다. 뷰에서 <code>section</code>객체를 html 문서로 보내 <code>title</code> 속성을 출력할 수 있도록 지원하는 것이다.</p>
+<h2 id="2-템플릿-필터">2. 템플릿 필터</h2>
+<p>템플릿필터는 <strong>변수의 값을 특정 형식으로 변환</strong>할 때 사용한다. 변수 다음에 <code>파이프(|)</code>를 넣은 다음 적용하고자 하는 필터를 명시한다. </p>
+<ul>
+<li>
+<p><strong>여러 개의 필터를 연속적으로 사용할 수 있다.</strong> </p>
+<p><code>{{ text|escape|linebreaks }}</code>는 텍스트 컨텐츠를 이스케이프한 다음, 행 바꿈을 <code>&lt;p&gt;</code> 태그로 바꾸기 위해 종종 사용되곤 한다.</p>
+</li>
+<li>
+<p><strong>몇몇 필터는 <code>:</code> 문자를 통해 인자를 취한다.</strong> </p>
+<p>필터 인자는 <code>{{bio|truncatewords:30 }}</code>과 같이 사용하는데, 이것은 <code>bio</code> 변수의 처음 30 단어를 보여준다.</p>
+<p>필터 인자에 공백이 포함된 경우에는 반드시 따옴표로 둘러싸야한다.</p>
+</li>
+<li>
+<p>템플릿 필터를 직접 만들 수도 있다.  <a href="https://django-doc-test-kor.readthedocs.io/en/old_master/howto/custom-template-tags.html">Custom template tags and filters</a> 참고</p>
+</li>
+</ul>
+<p>장고는 30개 정도의 <a href="https://django-doc-test-kor.readthedocs.io/en/old_master/ref/templates/builtins.html#ref-templates-builtins-filters">내장 템플릿 필터</a>를 제공하는데, 자주 사용되는 템플릿 필터를 정리했다.</p>
+<h3 id="default">default</h3>
+<p>변수가 false 또는 비어 있는 경우, 지정된 defalut를 사용한다. </p>
+<pre class=" language-django"><code class=" language-django">{{ value|default:"nothing" }}</code></pre>
+<p><code>value</code>가 제공되지 않았거나 비어 있는 경우, 위에서는 “<code>nothing</code>“을 출력한다.</p>
+<h3 id="length">length</h3>
+<p>값의 길이를 반환한다. 문자열과 목록에 대하여 사용할 수 있다. </p>
+<pre class=" language-django"><code class=" language-django">{{ value|length }}</code></pre>
+<p><code>value</code>가 <code>['a', 'b', 'c', 'd']</code>라면, 결과는 <code>4</code>가 된다.</p>
+<h3 id="upper">upper</h3>
+<p>위의 예제에서 사용한 필터. </p>
+<pre class=" language-django"><code class=" language-django">{{ story.headline|upper }}</code></pre>
+<p>'story.headline'의 값을 대문자 형식으로 변환한다.</p>
+<h2 id="3-템플릿-태그">3. 템플릿 태그</h2>
+<p>HTML 자체는 프로그래밍 로직을 구현할 수 없지만, 템플릿 태그를 사용하면  if문, for문처럼 흐름을 제어할 수 있다.</p>
+<ul>
+<li><code>% tag %</code> 와 같이 생겼다.</li>
+<li><code>% extends %</code>와 같이 단독으로 사용할 수 있는 템플릿 태그들도 있지만, <code>% if %</code> 처럼 뒤에 <code>% endif %</code> 템플릿 태그를 <strong>반드시 닫아주어야 하는</strong> 것들도 있다.</li>
+</ul>
+<p>장고에는 20개가 넘는 템플릿 태그가 내장되어 있다. <a href="https://django-doc-test-kor.readthedocs.io/en/old_master/ref/templates/builtins.html#ref-templates-builtins-tags">내장 태그 레퍼런스</a>에서 읽어볼 수 있다. 자주 사용하는 몇 개만 정리하자면,</p>
+<h3 id="for">for</h3>
+<p>배열의 각 원소에 대하여 루프.</p>
+<pre class=" language-django"><code class=" language-django">&lt;ul&gt;
+% for student in student_list %
+    &lt;li&gt;{{ student.name }}&lt;/li&gt;
+% endfor %
+&lt;/ul&gt;</code></pre>
+<p><code>student_list</code>에 들어 있는 선수의 목록을 출력하기 위해 위의 예제처럼 사용할 수 있다.</p>
+<h3 id="if--else">if / else</h3>
+<p>변수가 <code>true</code>이면 블록의 컨텐츠를 표시. if 태그 내에 템플릿 필터 및 각종 연산자를 사용할 수 있다.</p>
+<pre class=" language-django"><code class=" language-django">% if student_list %
+    총 학생 수 : {{ student_list|length }}
+% else %
+    학생이 없어요!
+% endif %</code></pre>
+<h3 id="block-및-extentds">block 및 extentds</h3>
+<p>중복되는 html 파일 내용을 반복해서 작성해야하는 번거로움을 줄여준다. 자세한 내용은 <a href="https://django-doc-test-kor.readthedocs.io/en/old_master/topics/templates.html#template-inheritance">템플릿 상속</a> 참조. </p>
+<h2 id="4-템플릿-코멘트">4. 템플릿 코멘트</h2>
+<p>HTML 문서 상에서 주석이 필요할 때 사용한다.</p>
+<p>장고에서는 두 가지 형식의 코멘트 형식을 제공한다.</p>
+<h4 id="한-줄">한 줄</h4>
+<pre class=" language-django"><code class=" language-django"># 주석 내용 # </code></pre>
+<p> 개행 허용되지 않음.</p>
+<h4 id="여러-줄">여러 줄</h4>
+<pre class=" language-django"><code class=" language-django">% comment %
+주석 내용
+% endcomment %</code></pre>
+{% endblock %}

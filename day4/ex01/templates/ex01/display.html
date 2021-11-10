@@ -1,0 +1,28 @@
+{% extends 'ex01/base.html' %} {% load static %}
+{% block title %}<title>Ex01: Display process of a static page.</title>{% endblock title%}
+{% block style %}<link rel="stylesheet" type="text/css" href="{% static '/ex01/style1.css' %}"/>{% endblock style %}
+{% block content %}
+<div class="content">
+	<p>&nbsp;</p>
+	<p>이번에는 정적 웹 페이지와 동적 웹 페이지에 대해서 알아보겠습니다. 특히 웹크롤링에 관심이 있으신 분이라면 알아두면 도움이 됩니다.&nbsp;</p>
+	<h4><span style="color: #1e272e; background-color: #fdcb6e; border-left: 10px solid #55555B; border-bottome: 2px solid #ccc; padding: 3px 5px;"><b>정적 웹 페이지 (static web pages)</b></span></h4>
+	<p>정적 웹 페이지는 언제 접속해도 같은 응답을 보내줍니다. 일단 HTML, CSS, JS 파일 등이 서버에 업로드되면 개발자가 수정하기 전까지 매번 같은 파일을 브라우저에 건네줍니다.</p>
+	<p>&nbsp;</p>
+	<p>즉, 웹 서버가 정적 웹 페이지에 대한 요청을 받은 경우 서버는 추가적인 처리 과정 없이 클라이언트에게 응답을 보냅니다. 예를 들어 회사나 개인의 소개 페이지가 정적 웹 페이지의 좋은 예시입니다.&nbsp;</p>
+	<p>&nbsp;</p>
+	<figure class="imageblock alignCenter" data-origin-width="0" data-origin-height="0"><span data-url="https://blog.kakaocdn.net/dn/M6DAd/btqCaSq2Sv0/RNXKD9dKanpwuLToXslkYk/img.png" data-lightbox="lightbox" data-alt=""><img src="https://blog.kakaocdn.net/dn/M6DAd/btqCaSq2Sv0/RNXKD9dKanpwuLToXslkYk/img.png" srcset="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FM6DAd%2FbtqCaSq2Sv0%2FRNXKD9dKanpwuLToXslkYk%2Fimg.png" data-origin-width="0" data-origin-height="0"></span></figure>
+	<p>&nbsp;</p>
+	<h4><span style="color: #1e272e; background-color: #fdcb6e; border-left: 10px solid #55555B; border-bottome: 2px solid #ccc; padding: 3px 5px;"><b>동적 웹 페이지 (dynamic web pages)</b></span></h4>
+	<p>웹 서버가 동적 웹 페이지에 대한 요청을 받은 경우 서버는 추가적인 처리 과정 이후 클라이언트에게 응답을 보냅니다. 동적 페이지는 방문자와 상호작용하기 때문에 페이지 내용은 그때그때 다릅니다. 댓글, 날씨, 주가 정보 등과 같이 정보 변경이 잦은 곳에 많이 사용됩니다.&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>웹 페이지 상에서 특정 부분을 동적으로 바꾸는 형태로 사용됩니다. 예를 들어 다음 뉴스 댓글, 스타벅스 매장 정보, 롭스 상품 검색 결과 등이 해당합니다. 해당 사이트들은 웹 페이지 전체에 해당하는 정적인 페이지 데이터(HTML 등)를 다 보여준 후에야 동적으로 데이터를 가져와서 나타내 줍니다.&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>그렇기 때문이 이런 사이트들은 파이썬에서 requests 라이브러리를 이용해서 html 응답을 받아와도 동적인 데이터는 보이지 않는 것입니다. 받아온 응답에는 정적 페이지의 html 코드만 포함되어있으니까요.</p>
+	<p>&nbsp;</p>
+	<p></p><figure class="imageblock alignCenter" data-origin-width="0" data-origin-height="0"><span data-url="https://blog.kakaocdn.net/dn/xbJio/btqB7OwZ6VQ/qIyZStWfnICs8HkXeqaSZK/img.png" data-lightbox="lightbox" data-alt=""><img src="https://blog.kakaocdn.net/dn/xbJio/btqB7OwZ6VQ/qIyZStWfnICs8HkXeqaSZK/img.png" srcset="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FxbJio%2FbtqB7OwZ6VQ%2FqIyZStWfnICs8HkXeqaSZK%2Fimg.png" data-origin-width="0" data-origin-height="0"></span></figure><p></p>
+	<p>&nbsp;</p>
+	<p><b>그럼 파이썬으로 동적 웹페이지는 어떻게 크롤링할 수 있을까</b></p>
+	<p>requests 라이브러리를 이용해서는 나타나지 않는 데이터들을 수집하는 가장 손쉬운 방법은 코드로 브라우저를 제어하는 것입니다. Selenium 라이브러리를 사용하면 브라우저의 동작을 파이썬 코드로 조작할 수 있습니다. 이 라이브러리를 활용해서 원하는 페이지에 접근해서 동적 데이터가 모두 로딩된 이후의 상태를 크롤링하면 됩니다.&nbsp;</p>
+</div>
+
+{% endblock content%}

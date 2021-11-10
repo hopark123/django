@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UFT-8">
+		{% block title%}{% endblock %}
+		{% block style%}{% endblock %}
+	</head>
+	<body>
+		{% include 'nav.html' %}
+		{% block content%}{% endblock %}
+		<hr>
+		{% include 'tip.html' %}
+		<br>
+		<br>
+		{% include 'messages.html' %}
+	</body>
+</html>

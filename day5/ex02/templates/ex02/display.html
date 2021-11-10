@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UFT-8" />
+	<title>ex05 </title>
+</head>
+<body>
+<table>
+	<tr>
+		<th> Title </th>
+		<th> Episode_nb </th>
+		<th> Opening_crawl </th>
+		<th> Director </th>
+		<th> Producer </th>
+		<th> Release_date </th>
+	</tr>
+	{% for case in data %}
+	<tr>
+		{% for elem in case %}
+			<td style ="border: 1px solid">{{elem}}</td>
+		{% endfor %}
+	</tr>
+	{% endfor %}
+</table>
+</body>
+</html>

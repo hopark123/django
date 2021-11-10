@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}<title>{{profile.username}} Profile</title>{% endblock title%}
+
+{% block style%}
+<link rel="stylesheet" href="{% static 'profile_modify.css' %}">
+{% endblock %}
+
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="profile_container">
+<form method="POST" action="{% url 'modify_profile'%}" class="form" enctype="multipart/form-data">
+	{% csrf_token %}
+	<div class="name">Name: {{ form.name }} Surname: {{form.surname}}</div>
+	<div class="email">email: {{ form.email }}</div>
+	<div class="desc">{{form.description}}</div>
+	{{form.profile_image}}
+	<button data-dismiss="model" type="submit" value="submit">Modify profile</button>
+</form>
+</div>
+{% else %}
+<h1>you are not logged in!</h1>
+{% endif %}
+{% endblock %}

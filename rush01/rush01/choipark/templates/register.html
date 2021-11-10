@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content%}
+    <form method="POST">
+        {% csrf_token %}
+        {{ register_form|linebreaks }}
+        <input type="submit" value="Submit"/>
+    </form>
+	{{ message }}<br>
+{% endblock %}

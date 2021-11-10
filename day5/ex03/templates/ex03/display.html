@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UFT-8" />
+	<title>ex05 </title>
+</head>
+<body>
+<table>
+	<tr>
+		<th>> Title </th>
+		<th> Episode_nb </th>
+		<th> Opening_crawl </th>
+		<th> Director </th>
+		<th> Producer </th>
+		<th> Release_date </th>
+	</tr>
+	{% for elem in data %}
+	<tr>
+		<td style ="border: 1px solid">{{elem.title}}</td>
+		<td style ="border: 1px solid">{{elem.episode_nb}}</td>
+		<td style ="border: 1px solid">{{elem.opening_crawl}}</td>
+		<td style ="border: 1px solid">{{elem.producer}}</td>
+		<td style ="border: 1px solid">{{elem.release_date}}</td>
+		<td style ="border: 1px solid">{{elem.director}}</td>
+	</tr>
+	{% endfor %}
+</table>
+</body>
+</html>

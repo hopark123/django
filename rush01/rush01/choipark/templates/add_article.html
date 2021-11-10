@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}<title>{{article.title}}</title>{% endblock title%}
+
+{% block style%}
+<link rel="stylesheet" href="{% static 'post.css' %}">
+{% endblock %}
+
+{% block content%}
+{% if user.is_authenticated %}
+<div class="post_container">
+    <form method="POST" action="{% url 'add_article'%}" class="form">
+        {% csrf_token %}
+        <div>Title: {{ form.title }}</div>
+        <div>{{ form.content }}</div>
+        <button data-dismiss="model" type="submit" value="submit">Post Article</button>
+    </form>
+</div>
+{% else %}
+<h1>you are not logged in!</h1>
+{%endif%}
+{% endblock %}

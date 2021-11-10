@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}<title>MainPage</title>{% endblock title%}
+
+{% block style%}
+<link rel="stylesheet" href="{% static 'main.css' %}">
+{% endblock %}
+
+{% block content %}
+
+{% for article in articles %}
+<div class="article-box">
+    <div class="article-info">
+        {{ article.date }}
+        <a href="/profile/{{article.author.id}}"><strong>{{ article.author }}</strong></a> says:
+    </div>
+    <div class="article-title">
+        <a href="/detail/{{ article.id }}">{{ article.title|linebreaks }}</a>
+    </div>
+</div>
+<hr>
+{% endfor %}
+<div class="pagination justify-content-center">
+    {% if articles.has_previous %}
+    <div class="page-item">
+        <a class="page-link" href="?page={{ articles.previous_page_number }}">←</a>
+    </div>
+    {% else %}
+    <div class="page-item disabled">
+        <a class="page-link" tabindex="-1" aria-disabled="true" href="#">←</a>
+    </div>
+    {% endif %}
+    {% for page_number in articles.paginator.page_range %}
+    {% if page_number >= articles.number|add:-5 and page_number <= articles.number|add:5 %}
+        {% if page_number == articles.number %}
+        <div class="page-item active" aria-current="page">
+            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+        </div>
+        {% else %}
+        <div class="page-item">
+            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+        </div>
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+    {% if articles.has_next %}
+    <div class="page-item">
+        <a class="page-link" href="?page={{ articles.next_page_number }}">→</a>
+    </div>
+    {% else %}
+    <div class="page-item disabled">
+        <a class="page-link" tabindex="-1" aria-disabled="true" href="#">→</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock content%}

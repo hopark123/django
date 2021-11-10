@@ -1,0 +1,16 @@
+FROM nginx
+
+WORKDIR /usr/src/app
+
+RUN openssl rand -out /root/.rnd -hex 256 && \
+  openssl genrsa -out /rush01.localhost.key 4096 && \
+  openssl req -x509 -nodes -days 365 \
+  -key /rush01.localhost.key \
+  -out /rush01.localhost.crt \
+  -subj "/C=KR/ST=SEOUL/L=Gaepo-dong/O=42Seoul/OU=jiychoi,hopark/CN=localhost" && \
+  chmod 644 /rush01.localhost.*; \
+  mv /rush01.localhost.crt /etc/ssl/certs/;	\
+  mv /rush01.localhost.key /etc/ssl/private/;
+
+
+COPY ./nginx-app.conf /etc/nginx/conf.d

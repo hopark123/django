@@ -1,0 +1,39 @@
+{% if user.is_authenticated %}
+    <form method="POST" action="{% url "tip"%}" class="form">
+        {% csrf_token %}
+        <input type="hidden" value="{{tip.author}}" name="tip.author">
+        댓글 작성 : <input type="text" name="content"></input>
+        <button data-dismiss="modal" type="submit">작성</button>
+    </form>
+{%endif%}
+<br>
+    <hr>
+    {% for tip in tips %}
+        <div class="tip">
+            <div class="date">{{ tip.date }}</div>
+            <strong>{{ tip.author }}</strong>
+            <p>{{ tip.content|linebreaks }}</p>
+        </div>
+        <form method="POST" action="{% url "tip"%}">
+            {% csrf_token %}
+            {% if user.is_authenticated %}
+                <button type="submit" name="up" value="{{tip.pk}}">
+                up : {{tip.upvotes.count}}{{tip.modle.upvotes.count}}</button>
+            {%else%}
+                <button>up : {{tip.upvotes.count}}</button>
+            {%endif%}
+            {% if user.is_authenticated %}
+                <button type="submit" name="down" value="{{tip.pk}}">
+                down : {{tip.downvotes.count}}{{tip.modle.downvotes.count}}</button>
+            {%else%}
+                <button>down : {{tip.downvotes.count}}</button>
+            {%endif%}
+            {% if user.is_authenticated %}
+            <button type="submit" name="delete" value="{{tip.pk}}">
+                Delete</button>
+            {%else%}
+            <button>Delete</button>
+            {%endif%}
+        </form>
+        <hr>
+    {% endfor %}

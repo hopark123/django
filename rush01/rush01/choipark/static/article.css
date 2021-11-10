@@ -1,0 +1,62 @@
+.container {
+	padding: 15px 10px;
+}
+
+.date {
+	font-size: 20px;
+}
+
+.date > a {
+	text-decoration: none;
+	font-weight: 700;
+	color: rgb(196, 131, 63);
+}
+
+.article > h2 {
+	margin-bottom: 20px;
+}
+
+.article > p {
+	margin: 20px 0px;
+}
+
+.comment_date {
+	font-size: 20px;
+}
+
+.comment_date > a {
+	text-decoration: none;
+	font-weight: 700;
+	color: rgb(196, 131, 63);
+}
+
+.comment_container {
+	margin-bottom: 20px;
+}
+
+.comment_container > div {
+	margin-bottom: 20px;
+}
+
+.reply_date {
+	font-size: 17px;
+}
+
+.reply_date > a {
+	text-decoration: none;
+	font-weight: 700;
+	color: rgb(196, 131, 63);
+}
+
+.reply_container {
+	margin-left: 40px;
+	margin-bottom: 20px;
+}
+
+.reply_container > div {
+	margin-bottom: 20px;
+}
+
+button > img {
+	width: 30px;
+}

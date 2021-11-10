@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}<title>{{profile.username}} Profile</title>{% endblock title%}
+
+{% block style%}
+<link rel="stylesheet" href="{% static 'profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="profile">
+	<div class="row" style="display: flex; flex-direction: row;">
+		<div class="col-4" style="margin-right: 30px;">
+			<img src="
+				{% if profile.profile_image %}
+				/media/{{ profile.profile_image }}
+				{% else %}
+				https://i.stack.imgur.com/34AD2.jpg
+				{% endif %}
+				"
+				width="150px" style="border-radius: 50%;" alt="">
+		</div>
+		<div class="col-8">
+			<div>{{ profile.username }}
+				{% if if_sudo == 1 %}
+				(⭐SUPERUSER⭐)
+				{% endif %}
+				{% if if_self == 1 %}
+				<a href="/profile/modify"><button class="btn btn-success">Modify Profile</button></a>
+				{% endif %}
+			</div>
+			<p id="name">{{ profile.name }} {{ profile.surname }}</p>
+			<p id="email">{{ profile.email }}</p>
+			<p id="desc">{{ profile.description }}</p>
+		</div>
+	</div>
+	<hr>
+</div>
+{% endblock %}

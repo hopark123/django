@@ -1,0 +1,54 @@
+.article-box {
+	width: 100%;
+	height: 100px;
+	padding: 15px 10px;
+}
+
+.article-info {
+	font-size: 20px;
+}
+
+.article-info > a {
+	text-decoration: none;
+	color: rgb(196, 131, 63);
+}
+
+.article-title {
+	font-size: 30px;
+}
+
+.article-title > a {
+	text-decoration: none;
+	font-weight: 700;
+	color: rgb(196, 131, 63);
+}
+
+.pagination {
+	height: 50px;
+	line-height: 50px;
+}
+
+.pagination {
+	margin-top: 20px;
+	width: 100%;
+	height: 60px;
+	line-height: 60px;
+	background-color: rgb(245, 173, 84);
+
+}
+
+.pagination a {
+	text-decoration: none;
+	color: rgb(255, 255, 255);
+
+}
+
+.page-item {
+	height: 60px;
+	line-height: 60px;
+	font-size: 40px;
+	font-weight: 700;
+    display: inline-block;
+	margin-left: 20px;
+	margin-right: 20px;
+}

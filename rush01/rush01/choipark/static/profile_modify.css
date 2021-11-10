@@ -1,0 +1,17 @@
+.profile_container {
+	padding: 15px 10px;
+}
+
+.desc {
+	width: 500px;
+	margin-bottom: 20px;
+}
+
+.desc > textarea {
+	resize: none;
+}
+
+.name,
+.email {
+	margin-bottom: 20px;
+}

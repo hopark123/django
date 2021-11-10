@@ -1,0 +1,26 @@
+#profile {
+	padding-left: 20px;
+	padding-top: 15px;
+}
+
+.col-8 > div {
+	color: rgb(196, 131, 63);
+	font-size: 40px;
+	font-weight: 800;
+	height: 150px;
+	line-height: 150px;
+}
+
+p {
+	margin-top: 10px;
+	margin-bottom: 20px;
+}
+
+#name {
+	font-size: 30px;
+}
+
+#email {
+	color: rgb(196, 131, 63);
+	font-size: 20px;
+}
